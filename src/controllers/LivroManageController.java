@@ -56,8 +56,24 @@ public class LivroManageController implements Initializable {
     }
 
     @FXML
+    public void handleRemoverButton(ActionEvent e) {
+        Livro livroRemover = this.livroChoiceBox.getSelectionModel().getSelectedItem();
+        try {
+            Livro.destroy(livroRemover);
+            this.refreshData();
+            this.clearFields();
+        } catch (UnirestException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void handleLimparButton(ActionEvent e) {
+        this.clearFields();
+    }
+
+    @FXML
     public void handleCadastrarButton(ActionEvent e) {
-        System.out.println("AAA");
         String titulo = this.tituloTextField.getText();
         String isbn = this.isbnTextField.getText();
         Integer quantidade = Integer.parseInt(this.quantidadeTextField.getText());

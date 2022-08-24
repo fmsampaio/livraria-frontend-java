@@ -1,8 +1,6 @@
 package models;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import utils.AcessoAPI;
@@ -63,13 +61,17 @@ public class Livro implements JSONParsed {
         AcessoAPI.create("livros", livro);
     }
 
+    public static void destroy(Livro livro) throws UnirestException {
+        AcessoAPI.destroy("livros", livro.getId());
+    }
+
     public static ArrayList<Livro> getAll() {
         return new ArrayList<>(mapLivros.values());
     }
 
     @Override
     public String toString() {
-        return "(" + id + ") " + titulo;
+        return "(" + getId() + ") " + titulo;
     }
 
     @Override
@@ -90,5 +92,9 @@ public class Livro implements JSONParsed {
 
         System.out.println(json);
         return json;
+    }
+
+    public Integer getId() {
+        return id;
     }
 }

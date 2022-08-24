@@ -4,6 +4,7 @@ import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
+import com.mashape.unirest.request.HttpRequestWithBody;
 import models.JSONParsed;
 import org.json.JSONObject;
 
@@ -13,8 +14,6 @@ public class AcessoAPI {
         HttpResponse<JsonNode> response = Unirest.get(url).asJson();
 
         System.out.println(response.getStatus());
-        System.out.println(response.getBody());
-
         return response.getBody();
     }
 
@@ -28,7 +27,15 @@ public class AcessoAPI {
                 .asJson();
 
         System.out.println(response.getStatus());
-        System.out.println(response.getBody());
+    }
+
+    public static void destroy(String recurso, int id) throws UnirestException {
+        String url = "http://localhost:8000/" + recurso + "/" + id;
+        System.out.println(url);
+        HttpResponse<String> response = Unirest.delete(url).asString();
+
+        System.out.println(response.getStatus());
+
     }
 
 }
