@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="561.0" prefWidth="883.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.LivroManageController">
+   <children>
+      <ChoiceBox fx:id="livroChoiceBox" layoutX="75.0" layoutY="33.0" prefHeight="26.0" prefWidth="390.0" />
+      <Label layoutX="25.0" layoutY="38.0" text="Livro:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="tituloTextField" layoutX="75.0" layoutY="102.0" prefHeight="26.0" prefWidth="225.0" />
+      <Label layoutX="25.0" layoutY="107.0" text="Titulo:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="25.0" layoutY="139.0" text="ISBN:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="25.0" layoutY="172.0" text="Preço:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="204.0" text="Quantidade:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="24.0" layoutY="238.0" text="Categoria:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="273.0" text="Editora:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label layoutX="27.0" layoutY="319.0" text="Autores:">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <TextField fx:id="isbntextField" layoutX="75.0" layoutY="134.0" prefHeight="26.0" prefWidth="225.0" />
+      <TextField fx:id="precoTextField" layoutX="75.0" layoutY="167.0" prefHeight="26.0" prefWidth="225.0" />
+      <TextField fx:id="quantidadeTextField" layoutX="121.0" layoutY="199.0" prefHeight="26.0" prefWidth="183.0" />
+      <ChoiceBox fx:id="categoriaChoiceBox" layoutX="121.0" layoutY="233.0" prefHeight="26.0" prefWidth="183.0" />
+      <ChoiceBox fx:id="editoraChoiceBox" layoutX="121.0" layoutY="268.0" prefHeight="26.0" prefWidth="183.0" />
+      <ListView fx:id="autoresListView" layoutX="121.0" layoutY="319.0" prefHeight="221.0" prefWidth="183.0" />
+   </children>
+</AnchorPane>
