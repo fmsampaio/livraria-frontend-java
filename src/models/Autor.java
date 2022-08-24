@@ -44,7 +44,11 @@ public class Autor {
 
     @Override
     public String toString() {
-        return "id=" + id +
+        return "id=" + getId() +
                 ", nome='" + nome + '\'';
+    }
+
+    public int getId() {
+        return id;
     }
 }

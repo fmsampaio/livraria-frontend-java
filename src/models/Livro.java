@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Livro {
+public class Livro implements JSONParsed {
     private static Map<Integer, Livro> mapLivros = new HashMap<>();
 
     private Integer id;
@@ -59,6 +59,10 @@ public class Livro {
         }
     }
 
+    public static void create(Livro livro) throws UnirestException {
+        AcessoAPI.create("livros", livro);
+    }
+
     public static ArrayList<Livro> getAll() {
         return new ArrayList<>(mapLivros.values());
     }
@@ -66,5 +70,25 @@ public class Livro {
     @Override
     public String toString() {
         return "(" + id + ") " + titulo;
+    }
+
+    @Override
+    public JSONObject geraJSON() {
+        JSONObject json = new JSONObject();
+        json.put("titulo", this.titulo);
+        json.put("ISBN", this.ISBN);
+        json.put("quantidade", this.quantidade);
+        json.put("preco", this.preco);
+        json.put("categoria_id", this.categoria.getId());
+        json.put("editora_id", this.editora.getId());
+
+        ArrayList<Integer> autoresIds = new ArrayList<>();
+        for(Autor autor : this.autores) {
+            autoresIds.add(autor.getId());
+        }
+        json.put("autores", autoresIds);
+
+        System.out.println(json);
+        return json;
     }
 }

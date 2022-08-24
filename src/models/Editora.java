@@ -30,7 +30,7 @@ public class Editora {
 
     @Override
     public String toString() {
-        return "id=" + id +
+        return "id=" + getId() +
                 ", nome='" + nome + '\'';
     }
 
@@ -46,5 +46,9 @@ public class Editora {
     public static ArrayList<Editora> getAll() {
         return new ArrayList<>(mapEditoras.values());
 
+    }
+
+    public int getId() {
+        return id;
     }
 }

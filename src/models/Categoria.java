@@ -27,7 +27,7 @@ public class Categoria {
 
     @Override
     public String toString() {
-        return "id=" + id +
+        return "id=" + getId() +
                 ", descricao='" + descricao + '\'';
     }
 
@@ -43,5 +43,9 @@ public class Categoria {
     public static ArrayList<Categoria> getAll() {
         return new ArrayList<>(mapCategorias.values());
 
+    }
+
+    public int getId() {
+        return id;
     }
 }
