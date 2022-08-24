@@ -66,11 +66,12 @@ public class LivroManageController implements Initializable {
         Categoria categoria = this.categoriaChoiceBox.getSelectionModel().getSelectedItem();
         Editora editora = this.editoraChoiceBox.getSelectionModel().getSelectedItem();
 
-        ObservableList<Integer> autoresIds = this.autoresListView.getSelectionModel().getSelectedIndices();
+        ObservableList<Integer> indices = this.autoresListView.getSelectionModel().getSelectedIndices();
 
         ArrayList<Autor> autores = new ArrayList<>();
-        for(Integer id : autoresIds) {
-            autores.add(Autor.getAutor(id));
+        for(Integer id : indices) {
+            Autor autor = this.autoresListView.getItems().get(id);
+            autores.add(autor);
         }
 
         Livro livroCadastro = new Livro(-1, titulo, isbn, quantidade, preco, categoria, editora, autores);
