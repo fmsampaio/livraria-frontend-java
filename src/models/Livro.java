@@ -59,7 +59,13 @@ public class Livro {
         }
     }
 
-    public static ObservableList<Livro> getAll() {
-        return FXCollections.observableList(new ArrayList<>(mapLivros.values()));
+    public static ArrayList<Livro> getAll() {
+        return new ArrayList<>(mapLivros.values());
+        //return FXCollections.observableList(new ArrayList<>(mapLivros.values()));
+    }
+
+    @Override
+    public String toString() {
+        return "(" + id + ") " + titulo;
     }
 }

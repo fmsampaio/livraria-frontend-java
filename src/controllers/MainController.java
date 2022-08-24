@@ -1,6 +1,7 @@
 package controllers;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,7 +46,7 @@ public class MainController implements Initializable  {
 
     @FXML
     public void handleAtualizarLivros(ActionEvent e) {
-        ObservableList<Livro> livros = Livro.getAll();
+        ArrayList<Livro> livros = Livro.getAll();
         System.out.println(livros);
 
         this.idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -53,7 +54,7 @@ public class MainController implements Initializable  {
         this.precoTableColumn.setCellValueFactory(new PropertyValueFactory<>("preco"));
         this.quantidadeTableColumn.setCellValueFactory(new PropertyValueFactory<>("quantidade"));
 
-        this.dataTableView.setItems(livros);
+        this.dataTableView.setItems(FXCollections.observableList(livros));
 
         this.dataTableView.refresh();
 
