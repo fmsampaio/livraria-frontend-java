@@ -5,6 +5,7 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ListView;
 import models.Autor;
 import models.Categoria;
 import models.Editora;
@@ -22,6 +23,8 @@ public class LivroManageController implements Initializable {
     ChoiceBox<Categoria> categoriaChoiceBox;
     @FXML
     ChoiceBox<Editora> editoraChoiceBox;
+    @FXML
+    ListView<Autor> autoresListView;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -32,10 +35,15 @@ public class LivroManageController implements Initializable {
             Autor.fetchAll();
 
             this.fillChoiceBoxes();
+            this.fillAutorListView();
         }
         catch(UnirestException e) {
             e.printStackTrace();
         }
+    }
+
+    private void fillAutorListView() {
+        this.autoresListView.setItems(FXCollections.observableList(Autor.getAll()));
     }
 
     private void fillChoiceBoxes() {

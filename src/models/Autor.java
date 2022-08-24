@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import utils.AcessoAPI;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +34,17 @@ public class Autor {
         }
     }
 
+    public static ArrayList<Autor> getAll() {
+        return new ArrayList<>(mapAutores.values());
+    }
+
     public static Autor getAutor(int id) {
         return mapAutores.get(id);
+    }
+
+    @Override
+    public String toString() {
+        return "id=" + id +
+                ", nome='" + nome + '\'';
     }
 }

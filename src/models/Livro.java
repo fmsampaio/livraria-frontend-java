@@ -61,7 +61,6 @@ public class Livro {
 
     public static ArrayList<Livro> getAll() {
         return new ArrayList<>(mapLivros.values());
-        //return FXCollections.observableList(new ArrayList<>(mapLivros.values()));
     }
 
     @Override
