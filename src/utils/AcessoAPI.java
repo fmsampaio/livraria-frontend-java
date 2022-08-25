@@ -31,11 +31,22 @@ public class AcessoAPI {
 
     public static void destroy(String recurso, int id) throws UnirestException {
         String url = "http://localhost:8000/" + recurso + "/" + id;
-        System.out.println(url);
+
         HttpResponse<String> response = Unirest.delete(url).asString();
 
         System.out.println(response.getStatus());
+    }
 
+    public static void update(String recurso, int id, JSONParsed dados) throws UnirestException {
+        JSONObject json = dados.geraJSON();
+
+        String url = "http://localhost:8000/" + recurso + "/" + id;
+        HttpResponse<JsonNode> response = Unirest.put(url)
+                .header("Content-Type", "application/json")
+                .body(json.toString())
+                .asJson();
+
+        System.out.println(response.getStatus());
     }
 
 }

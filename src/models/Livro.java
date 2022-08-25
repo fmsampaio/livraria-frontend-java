@@ -65,6 +65,10 @@ public class Livro implements JSONParsed {
         AcessoAPI.destroy("livros", livro.getId());
     }
 
+    public static void update(Livro livro) throws UnirestException {
+        AcessoAPI.update("livros", livro.getId(), livro);
+    }
+
     public static ArrayList<Livro> getAll() {
         return new ArrayList<>(mapLivros.values());
     }

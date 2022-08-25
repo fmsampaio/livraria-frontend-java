@@ -14,6 +14,7 @@ import models.Categoria;
 import models.Editora;
 import models.Livro;
 
+import javax.swing.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -165,6 +166,37 @@ public class LivroManageController implements Initializable {
             ex.printStackTrace();
         }
 
+    }
+
+    @FXML
+    public void handleEditarButton(ActionEvent e) {
+        int id = this.selectedLivro.getId();
+        String titulo = this.tituloTextField.getText();
+        String isbn = this.isbnTextField.getText();
+        Integer quantidade = Integer.parseInt(this.quantidadeTextField.getText());
+        Double preco = Double.parseDouble(this.precoTextField.getText());
+
+        Categoria categoria = this.categoriaChoiceBox.getSelectionModel().getSelectedItem();
+        Editora editora = this.editoraChoiceBox.getSelectionModel().getSelectedItem();
+
+        ObservableList<Integer> indices = this.autoresListView.getSelectionModel().getSelectedIndices();
+
+        ArrayList<Autor> autores = new ArrayList<>();
+        for(Integer idx : indices) {
+            Autor autor = this.autoresListView.getItems().get(idx);
+            autores.add(autor);
+        }
+
+        Livro livroAtualiza = new Livro(id, titulo, isbn, quantidade, preco, categoria, editora, autores);
+
+        try {
+            Livro.update(livroAtualiza);
+            this.refreshData();
+            this.clearFields();
+        }
+        catch(UnirestException ex) {
+            ex.printStackTrace();
+        }
     }
 
     private void clearFields() {
