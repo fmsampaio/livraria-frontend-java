@@ -35,14 +35,18 @@ public class Categoria {
         JSONArray array = AcessoAPI.getAll("categorias").getArray();
         mapCategorias.clear();
         for (int i = 0; i < array.length(); i++) {
-            JSONObject atorJson = array.getJSONObject(i);
-            mapCategorias.put(atorJson.getInt("id"), new Categoria(atorJson));
+            JSONObject categoriaJson = array.getJSONObject(i);
+            mapCategorias.put(categoriaJson.getInt("id"), new Categoria(categoriaJson));
         }
     }
 
     public static ArrayList<Categoria> getAll() {
         return new ArrayList<>(mapCategorias.values());
 
+    }
+
+    public static Categoria getById(int id) {
+        return mapCategorias.get(id);
     }
 
     public int getId() {

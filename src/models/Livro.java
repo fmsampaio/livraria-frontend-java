@@ -27,13 +27,13 @@ public class Livro implements JSONParsed {
         this.ISBN = jsonObj.getString("ISBN");
         this.quantidade = jsonObj.getInt("quantidade");
         this.preco = jsonObj.getDouble("preco");
-        //this.categoria = Categoria.mapCategorias.get((jsonObj.getJSONObject("categoria").getInt("id")));
-        //this.editora = editora;
+        this.categoria = Categoria.getById(jsonObj.getJSONObject("categoria").getInt("id"));
+        this.editora = Editora.getById(jsonObj.getJSONObject("editora").getInt("id"));
         this.autores = new ArrayList<>();
         JSONArray arrayAutores = jsonObj.getJSONArray("autores");
         for (int i = 0; i < arrayAutores.length(); i++) {
             int autorId = arrayAutores.getJSONObject(i).getInt("id");
-            this.autores.add(Autor.getAutor(autorId));
+            this.getAutores().add(Autor.getById(autorId));
         }
     }
 
@@ -71,21 +71,21 @@ public class Livro implements JSONParsed {
 
     @Override
     public String toString() {
-        return "(" + getId() + ") " + titulo;
+        return "(" + getId() + ") " + getTitulo();
     }
 
     @Override
     public JSONObject geraJSON() {
         JSONObject json = new JSONObject();
-        json.put("titulo", this.titulo);
-        json.put("ISBN", this.ISBN);
-        json.put("quantidade", this.quantidade);
-        json.put("preco", this.preco);
-        json.put("categoria_id", this.categoria.getId());
-        json.put("editora_id", this.editora.getId());
+        json.put("titulo", this.getTitulo());
+        json.put("ISBN", this.getISBN());
+        json.put("quantidade", this.getQuantidade());
+        json.put("preco", this.getPreco());
+        json.put("categoria_id", this.getCategoria().getId());
+        json.put("editora_id", this.getEditora().getId());
 
         ArrayList<Integer> autoresIds = new ArrayList<>();
-        for(Autor autor : this.autores) {
+        for(Autor autor : this.getAutores()) {
             autoresIds.add(autor.getId());
         }
         json.put("autores", autoresIds);
@@ -96,5 +96,33 @@ public class Livro implements JSONParsed {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public String getISBN() {
+        return ISBN;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public Double getPreco() {
+        return preco;
+    }
+
+    public Categoria getCategoria() {
+        return categoria;
+    }
+
+    public Editora getEditora() {
+        return editora;
+    }
+
+    public ArrayList<Autor> getAutores() {
+        return autores;
     }
 }

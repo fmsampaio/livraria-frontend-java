@@ -1,6 +1,8 @@
 package controllers;
 
 import com.mashape.unirest.http.exceptions.UnirestException;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -43,6 +45,56 @@ public class LivroManageController implements Initializable {
         catch(UnirestException e) {
             e.printStackTrace();
         }
+
+        this.handleLivroChoiceBoxEvent();
+
+    }
+
+    private void handleLivroChoiceBoxEvent() {
+        this.livroChoiceBox.valueProperty().addListener(new ChangeListener<Livro>() {
+            @Override
+            public void changed(ObservableValue<? extends Livro> observable, Livro oldValue, Livro newValue) {
+                System.out.println(newValue.getCategoria());
+
+                tituloTextField.setText(newValue.getTitulo());
+                isbnTextField.setText(newValue.getISBN());
+                precoTextField.setText(newValue.getPreco().toString());
+                quantidadeTextField.setText(newValue.getQuantidade().toString());
+
+                categoriaChoiceBox.getSelectionModel().select(newValue.getCategoria());
+                editoraChoiceBox.getSelectionModel().select(newValue.getEditora());
+
+                int[] autoresIdxArr = new int[newValue.getAutores().size()];
+                ArrayList<Integer> autoresIdx = new ArrayList<>();
+                for (Autor autor: newValue.getAutores()) {
+                    int id = 0;
+                    for (Autor aux : Autor.getAll()) {
+                        if(autor.getId() == aux.getId()) {
+                            autoresIdx.add(id);
+                            break;
+                        }
+                        id += 1;
+                    }
+                }
+
+                for (int id = 0; id < autoresIdx.size(); id++) {
+                    autoresIdxArr[id] = autoresIdx.get(id);
+                }
+                autoresListView.getSelectionModel().clearSelection();
+                autoresListView.getSelectionModel().selectIndices(-1, autoresIdxArr);
+
+                /*
+                int idx = 0;
+                for (Categoria cat: Categoria.getAll()) {
+
+                    if(cat.getId() == newValue.getCategoria().getId()) {
+                        break;
+                    }
+                    idx += 1;
+                }
+                categoriaChoiceBox.getSelectionModel().select(idx);*/
+            }
+        });
     }
 
     private void fillAutorListView() {
@@ -116,10 +168,10 @@ public class LivroManageController implements Initializable {
     }
 
     private void refreshData() throws UnirestException {
-        Livro.fetchAll();
         Categoria.fetchAll();
         Editora.fetchAll();
         Autor.fetchAll();
+        Livro.fetchAll();
 
         this.fillChoiceBoxes();
         this.fillAutorListView();

@@ -38,14 +38,18 @@ public class Editora {
         JSONArray array = AcessoAPI.getAll("editoras").getArray();
         mapEditoras.clear();
         for (int i = 0; i < array.length(); i++) {
-            JSONObject atorJson = array.getJSONObject(i);
-            mapEditoras.put(atorJson.getInt("id"), new Editora(atorJson));
+            JSONObject editoraJson = array.getJSONObject(i);
+            mapEditoras.put(editoraJson.getInt("id"), new Editora(editoraJson));
         }
     }
 
     public static ArrayList<Editora> getAll() {
         return new ArrayList<>(mapEditoras.values());
 
+    }
+
+    public static Editora getById(int id) {
+        return mapEditoras.get(id);
     }
 
     public int getId() {

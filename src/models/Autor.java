@@ -38,7 +38,7 @@ public class Autor {
         return new ArrayList<>(mapAutores.values());
     }
 
-    public static Autor getAutor(int id) {
+    public static Autor getById(int id) {
         return mapAutores.get(id);
     }
 
