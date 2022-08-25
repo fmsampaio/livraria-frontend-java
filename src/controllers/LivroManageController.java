@@ -8,16 +8,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import models.Autor;
 import models.Categoria;
 import models.Editora;
 import models.Livro;
 
-import javax.swing.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -32,12 +28,19 @@ public class LivroManageController implements Initializable {
     ChoiceBox<Editora> editoraChoiceBox;
     @FXML
     ListView<Autor> autoresListView;
-
     @FXML
     TextField tituloTextField, isbnTextField, precoTextField, quantidadeTextField;
+    @FXML
+    Button cadastrarButton, limparButton, editarButton, removerButton;
+
+
+    Livro selectedLivro;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.selectedLivro = null;
+        updateOptionsInGUI();
+
         try {
             this.autoresListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
             this.refreshData();
@@ -54,47 +57,56 @@ public class LivroManageController implements Initializable {
         this.livroChoiceBox.valueProperty().addListener(new ChangeListener<Livro>() {
             @Override
             public void changed(ObservableValue<? extends Livro> observable, Livro oldValue, Livro newValue) {
-                System.out.println(newValue.getCategoria());
+                selectedLivro = newValue;
 
-                tituloTextField.setText(newValue.getTitulo());
-                isbnTextField.setText(newValue.getISBN());
-                precoTextField.setText(newValue.getPreco().toString());
-                quantidadeTextField.setText(newValue.getQuantidade().toString());
+                updateOptionsInGUI();
 
-                categoriaChoiceBox.getSelectionModel().select(newValue.getCategoria());
-                editoraChoiceBox.getSelectionModel().select(newValue.getEditora());
+                if(selectedLivro != null) {
 
-                int[] autoresIdxArr = new int[newValue.getAutores().size()];
-                ArrayList<Integer> autoresIdx = new ArrayList<>();
-                for (Autor autor: newValue.getAutores()) {
-                    int id = 0;
-                    for (Autor aux : Autor.getAll()) {
-                        if(autor.getId() == aux.getId()) {
-                            autoresIdx.add(id);
-                            break;
+                    tituloTextField.setText(selectedLivro.getTitulo());
+                    isbnTextField.setText(selectedLivro.getISBN());
+                    precoTextField.setText(selectedLivro.getPreco().toString());
+                    quantidadeTextField.setText(selectedLivro.getQuantidade().toString());
+
+                    categoriaChoiceBox.getSelectionModel().select(selectedLivro.getCategoria());
+                    editoraChoiceBox.getSelectionModel().select(selectedLivro.getEditora());
+
+                    int[] autoresIdxArr = new int[selectedLivro.getAutores().size()];
+                    ArrayList<Integer> autoresIdx = new ArrayList<>();
+                    for (Autor autor : selectedLivro.getAutores()) {
+                        int id = 0;
+                        for (Autor aux : Autor.getAll()) {
+                            if (autor.getId() == aux.getId()) {
+                                autoresIdx.add(id);
+                                break;
+                            }
+                            id += 1;
                         }
-                        id += 1;
                     }
-                }
 
-                for (int id = 0; id < autoresIdx.size(); id++) {
-                    autoresIdxArr[id] = autoresIdx.get(id);
-                }
-                autoresListView.getSelectionModel().clearSelection();
-                autoresListView.getSelectionModel().selectIndices(-1, autoresIdxArr);
-
-                /*
-                int idx = 0;
-                for (Categoria cat: Categoria.getAll()) {
-
-                    if(cat.getId() == newValue.getCategoria().getId()) {
-                        break;
+                    for (int id = 0; id < autoresIdx.size(); id++) {
+                        autoresIdxArr[id] = autoresIdx.get(id);
                     }
-                    idx += 1;
+                    autoresListView.getSelectionModel().clearSelection();
+                    autoresListView.getSelectionModel().selectIndices(-1, autoresIdxArr);
                 }
-                categoriaChoiceBox.getSelectionModel().select(idx);*/
             }
+
+
         });
+    }
+
+    private void updateOptionsInGUI() {
+        if(this.selectedLivro == null) {
+            this.removerButton.setDisable(true);
+            this.editarButton.setDisable(true);
+            this.cadastrarButton.setDisable(false);
+        }
+        else {
+            this.removerButton.setDisable(false);
+            this.editarButton.setDisable(false);
+            this.cadastrarButton.setDisable(true);
+        }
     }
 
     private void fillAutorListView() {

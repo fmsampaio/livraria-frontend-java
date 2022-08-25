@@ -58,9 +58,9 @@
       <ChoiceBox fx:id="categoriaChoiceBox" layoutX="121.0" layoutY="233.0" prefHeight="26.0" prefWidth="183.0" />
       <ChoiceBox fx:id="editoraChoiceBox" layoutX="121.0" layoutY="268.0" prefHeight="26.0" prefWidth="183.0" />
       <ListView fx:id="autoresListView" layoutX="121.0" layoutY="319.0" prefHeight="221.0" prefWidth="183.0" />
-      <Button layoutX="383.0" layoutY="514.0" mnemonicParsing="false" onAction="#handleCadastrarButton" text="Cadastrar" />
-      <Button layoutX="406.0" layoutY="477.0" mnemonicParsing="false" text="Editar" />
-      <Button layoutX="386.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleRemoverButton" text="Remover" />
-      <Button layoutX="348.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleLimparButton" text="Limpar seleçao" />
+      <Button fx:id="cadastrarButton" layoutX="383.0" layoutY="514.0" mnemonicParsing="false" onAction="#handleCadastrarButton" text="Cadastrar" />
+      <Button fx:id="editarButton" layoutX="406.0" layoutY="477.0" mnemonicParsing="false" text="Editar" />
+      <Button fx:id="removerButton" layoutX="386.0" layoutY="76.0" mnemonicParsing="false" onAction="#handleRemoverButton" text="Remover" />
+      <Button fx:id="limparButton" layoutX="348.0" layoutY="115.0" mnemonicParsing="false" onAction="#handleLimparButton" text="Limpar seleçao" />
    </children>
 </AnchorPane>
